@@ -443,6 +443,13 @@ void rtw_proc_init_one(struct net_device *dev)
 	}
 	entry->write_proc = proc_set_rx_signal;
 
+	entry = create_proc_read_entry("ampdu_enable", S_IFREG | S_IRUGO,
+				   dir_dev, proc_get_ampdu_enable, dev);				   
+	if (!entry) {
+		DBG_871X("Unable to create_proc_read_entry!\n"); 
+		return;
+	}
+	entry->write_proc = proc_set_ampdu_enable;
 
 	entry = create_proc_read_entry("rssi_disp", S_IFREG | S_IRUGO,
 				   dir_dev, proc_get_rssi_disp, dev);				   
